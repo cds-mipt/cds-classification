@@ -1,0 +1,10 @@
+[destinations]
+source_folders: ['/home/z_andrei/datasets/Traffic_ligths_data/TL_DTLD', '/home/z_andrei/datasets/Traffic_ligths_data/TL_NAMI', '/home/z_andrei/datasets/Traffic_ligths_data/TL_Taganrog', '/home/z_andrei/datasets/Traffic_ligths_data/TL_SDBCS_test', '/home/z_andrei/datasets/Traffic_ligths_data/TL_SDBCS_TSLR_train_with_YR', '/home/z_andrei/datasets/Traffic_ligths_data/TL_to_Selected_78+48']
+target_folder: /home/z_andrei/datasets/Traffic_ligths_data/TL_ALL/
+
+[subfolders]
+map_folders = {'G' :['G'], 'NA':['NA'], 'NT':['NT'], 'R':['R'], 'TR':['TR'], 'Y':['Y'], 'YR':['YR'] }
+
+[params]
+train_test_split: 0.8
+rotate: 1 
