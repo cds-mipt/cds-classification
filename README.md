@@ -80,7 +80,7 @@ predict*
 пример:
 
 
-`python train.py --device 2 --train-dir /path/to/train/dir/ --val-dir /path/to/val/dir/`
+`python train.py --device 2 --train-dir /path/to/train/dir/ --val-dir /path/to/val/dir/ --callback-folder ./models/`
 
 
 `device` отвечает за номер gpu, на котором будет обучаться сеть
@@ -91,4 +91,4 @@ predict*
 
 в `val-dir` следует указать путь до папки, в которой валидационная выборка будет разбита на подпапки
 
-чекпойнты сохраняются в папку `models`, которая должна находится в папке с train.py
+папка чекпойнтов задается флагом --callback-folder
