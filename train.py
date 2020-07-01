@@ -51,6 +51,12 @@ def build_parser():
         type=str,
         help="val dir"
     )
+    parser.add_argument(
+        "--callback-folder",
+        default='./models/',
+        type=str,
+        help="callback folder"
+    )
     return parser
 
 
@@ -65,6 +71,7 @@ def main(args):
     # 1) Path to train and test datasets
     train_dir = args.train_dir  
     test_dir = args.val_dir
+    callback_folder = args.callback_folder
 
 
     # 2) Target width and height of input images, number of classes, number of train and test images, batch size, epochs
@@ -107,7 +114,7 @@ def main(args):
     
     early_stop = EarlyStopping(monitor='val_loss', patience=8, verbose=1, min_delta=1e-4) # остановка обучения, если loss на валидационном множесте улучшается менее чем на 10^-4
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=4, verbose=1, min_delta=1e-4)
-    filepath="models/resnetm-all-71-{epoch:02d}-{val_acc:.2f}.hdf5"
+    filepath=callback_folder+"/resnetm-{epoch:02d}-{val_acc:.2f}.hdf5"
     check = ModelCheckpoint(filepath, monitor = "val_acc", save_best_only = False) # сохранение лучшей (с наибольшим acc на валидационном множестве) сети
     callbacks_list = [early_stop, reduce_lr , check]
     
