@@ -1,7 +1,5 @@
 # cds-classification
 
-
-
 ## crop_light.py
 Этот скрипт используется для получения датасета из светофоров.   
 На вход он принимает следующие параметры:
@@ -67,6 +65,13 @@
 
 
 test.py печатает получившийся precision, recall, fscore, accuracy и fps
+
+пример вывода:
+
+![test output](https://github.com/cds-mipt/cds-classification/blob/master/Screenshot%20from%202020-07-01%2022-05-29.png)
+
+
+predict*
 
 
 ## train.py
