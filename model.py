@@ -8,26 +8,25 @@ import tensorflow as tf
 from PIL import Image
 import os
 import argparse
-import keras
 import sys
 
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing import image as im
 import time
 import datetime
 
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import load_model
-from keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint, Callback
-from keras import regularizers
-from keras import backend as K
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.models import load_model
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint, Callback
+from tensorflow.keras import regularizers
+from tensorflow.keras import backend as K
 from sklearn.preprocessing import OneHotEncoder
 
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
-from keras.models import Sequential, Model
-from keras import layers
-from keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Input, AveragePooling2D
-from keras.layers import Activation, Flatten, Dense, Dropout
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras import layers
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, BatchNormalization, Input, AveragePooling2D
+from tensorflow.keras.layers import Activation, Flatten, Dense, Dropout
 
 
 
