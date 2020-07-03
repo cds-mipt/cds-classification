@@ -35,14 +35,24 @@ def copy(source_folder,
             shutil.copyfile(source_folder+'/'+source_subfolder+'/'+file,
                         dataset_folder+'/test/'+target_subfolder+'/'+file)
             
+def imread_utf8(filename):
+    try:
+        pil_image = PIL.Image.open(filename).convert('RGB')
+        open_cv_image = np.array(pil_image)
+        # Convert RGB to BGR
+        open_cv_image = open_cv_image[:, :, ::-1].copy()
+        return open_cv_image
+    except Exception as e:
+        print(e)
+        return None
+            
 def rotateImages(path):
   # for each image in the current directory
     for folder in os.listdir(path):
         for image in os.listdir(path+'/'+folder):
             img_name = path+'/'+folder+'/'+image
-            try:
-                img = cv2.imread(img_name)
-            except:
+            img = imread_utf8(img_name)
+            if img == None:
                 print("Invalid name: ", img_name)
             if img.shape[0] < img.shape[1]:
                 img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
