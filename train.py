@@ -57,6 +57,12 @@ def build_parser():
         type=str,
         help="callback folder"
     )
+    parser.add_argument(
+        "--tensorboard-folder",
+        default='logs',
+        type=str,
+        help="tensorboard folder"
+    )
     return parser
 
 
@@ -72,6 +78,7 @@ def main(args):
     train_dir = args.train_dir  
     test_dir = args.val_dir
     callback_folder = args.callback_folder
+    tensorboard_folder = args.tensorboard_folder
 
 
     # 2) Target width and height of input images, number of classes, number of train and test images, batch size, epochs
@@ -116,7 +123,7 @@ def main(args):
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=4, verbose=1, min_delta=1e-4)
     filepath=callback_folder+"/resnetm-{epoch:02d}-{val_acc:.2f}.hdf5"
     check = ModelCheckpoint(filepath, monitor = "val_acc", save_best_only = False) # сохранение лучшей (с наибольшим acc на валидационном множестве) сети
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir='./logs', profile_batch=10)
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=tensorboard_folder, profile_batch=10)
     callbacks_list = [early_stop, reduce_lr , check, tensorboard_callback]
     
     model_history = model.fit_generator(
