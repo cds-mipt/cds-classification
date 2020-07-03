@@ -11,6 +11,7 @@ import os
 import argparse
 import keras
 import sys
+import json
 
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing import image as im
@@ -56,7 +57,7 @@ def build_parser():
     parser.add_argument(
         "--error-logs",
         type=int,
-        default=1,
+        default=0,
         help="model path"
     )
     return parser
@@ -99,9 +100,9 @@ def save_error_matrix(test_path, model, labels, subfolders, cls_idx, idx_cls, im
 def main(args):
     tf.keras.backend.set_learning_phase(0)
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.device)
-    os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
-    # now = datetime.datetime.now()
-    # timeset = now.strftime("%d-%m-%Y_%H:%M")
+    os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true" # установка параметра,
+    # разрешающего совместное использование видеокарты
+
     #img_height, img_width = 96, 32
     img_height, img_width = 72, 72
 
@@ -128,9 +129,23 @@ def main(args):
 
     model_name = args.model
 
-    #loaded_model = resNetM((img_height, img_width, 3), len(labels))
-    #loaded_model.load_weights(model_name)
     loaded_model = load_model(model_name)
+
+    model_folder = os.path.dirname(model_name)
+    model_basename = os.path.basename(model_name)
+
+    model_in_out_json = {
+        'model_name': model_basename,
+        'model_input': {
+            'img_width' : img_width,
+            'img_height' : img_height,
+            'channels' : 3
+        },
+        'model_output': idx_cls
+    }
+
+    with open(os.path.join(model_folder, model_basename + '.json'), "w") as f:
+        json.dump(model_in_out_json, f, indent=4)
 
     if args.error_logs:
         save_error_matrix(test_dir, loaded_model, labels, os.listdir(test_dir), cls_idx, idx_cls, (img_height, img_width))
