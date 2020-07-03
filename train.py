@@ -116,7 +116,8 @@ def main(args):
     reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=4, verbose=1, min_delta=1e-4)
     filepath=callback_folder+"/resnetm-{epoch:02d}-{val_acc:.2f}.hdf5"
     check = ModelCheckpoint(filepath, monitor = "val_acc", save_best_only = False) # сохранение лучшей (с наибольшим acc на валидационном множестве) сети
-    callbacks_list = [early_stop, reduce_lr , check]
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir='./logs', profile_batch=10)
+    callbacks_list = [early_stop, reduce_lr , check, tensorboard_callback]
     
     model_history = model.fit_generator(
     train_generator,
