@@ -123,6 +123,7 @@ def main(args):
     
     
     labels = test_generator.classes
+    print(cls_idx)
     if args.error_logs:
         save_error_matrix(test_dir, loaded_model, labels, os.listdir(test_dir), cls_idx, idx_cls)
 
